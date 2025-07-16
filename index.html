@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>どっちを選ぶ？日本クイズ - トップ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+
+      background: url('image1.png') no-repeat center center fixed;
+      background-size: cover;
+
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+  background: rgba(0,0,0,1);
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 中央寄せ */
+  gap: 15px; /* ロゴと文字の間隔 */
+}
+
+header img.logo {
+  height: 50px;
+  width: auto;
+}
+
+header .site-title {
+  font-family: 'Kosugi Maru', sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+
+
+    h1 {
+      color: #fff;
+      margin-top: 50px;
+      font-size: 28px;
+    }
+
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .menu-card {
+      background: #fff;
+      width: 250px;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .menu-card h2 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: #007acc;
+    }
+
+    .menu-card p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.85); /* ヘッダーと同じ黒系 */
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+      margin-top: 40px; /* 本文との間に余白 */
+    }
+    
+    footer a {
+      color: #ffcc66; /* リンクはちょっと目立つ色 */
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header onclick="window.location.href='index.html'" style="cursor: pointer;">
+  <div class="header-content">
+    <img src="image-logo.png" alt="ロゴ" class="logo">
+    <span class="site-title">マッドラボ -人間観察チャンネル-</span>
+  </div>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+
+  </header>
+
+
+  <h1>どの動画に投票しますか？</h1>
+
+  <!-- ▼選択メニュー -->
+  <div class="menu-container">
+    <!-- 初級編 -->
+    <a href="index-page12.html" class="menu-card">
+      <h2>日本人の特殊能力 part12</h2>
+      <p>簡単な日本文化クイズで<br>ウォーミングアップ！</p>
+    </a>
+
+    <!-- 中級編 -->
+    <a href="index-page11.html" class="menu-card">
+      <h2>日本人の特殊能力 part11</h2>
+      <p>ちょっとレベルアップ<br>少しマニアックな問題に挑戦！</p>
+    </a>
+
+    <!-- 上級編 -->
+    <a href="quiz_hard.html" class="menu-card">
+      <h2>日本人の特殊能力 part10</h2>
+      <p>あなたは本当に日本通？<br>超難問クイズ！</p>
+    </a>
+  </div>
+
+  <div class="menu-container">
+    <!-- 初級編 -->
+    <a href="index-t2.html" class="menu-card">
+      <h2>日本人の特殊能力 part9</h2>
+      <p>簡単な日本文化クイズで<br>ウォーミングアップ！</p>
+    </a>
+
+    <!-- 中級編 -->
+    <a href="quiz_normal.html" class="menu-card">
+      <h2>日本人の特殊能力 part8</h2>
+      <p>ちょっとレベルアップ<br>少しマニアックな問題に挑戦！</p>
+    </a>
+
+    <!-- 上級編 -->
+    <a href="quiz_hard.html" class="menu-card">
+      <h2>日本人の特殊能力 part7</h2>
+      <p>あなたは本当に日本通？<br>超難問クイズ！</p>
+    </a>
+  </div>
+
+  <div class="menu-container">
+    <!-- 初級編 -->
+    <a href="index-t2.html" class="menu-card">
+      <h2>日本人の特殊能力 part6</h2>
+      <p>簡単な日本文化クイズで<br>ウォーミングアップ！</p>
+    </a>
+
+    <!-- 中級編 -->
+    <a href="quiz_normal.html" class="menu-card">
+      <h2>日本人の特殊能力 part5</h2>
+      <p>ちょっとレベルアップ<br>少しマニアックな問題に挑戦！</p>
+    </a>
+
+    <!-- 上級編 -->
+    <a href="quiz_hard.html" class="menu-card">
+      <h2>日本人の特殊能力 part4</h2>
+      <p>あなたは本当に日本通？<br>超難問クイズ！</p>
+    </a>
+  </div>
+
+  <div class="menu-container">
+    <!-- 初級編 -->
+    <a href="index-t2.html" class="menu-card">
+      <h2>日本人の特殊能力 part3</h2>
+      <p>簡単な日本文化クイズで<br>ウォーミングアップ！</p>
+    </a>
+
+    <!-- 中級編 -->
+    <a href="quiz_normal.html" class="menu-card">
+      <h2>日本人の特殊能力 part2</h2>
+      <p>ちょっとレベルアップ<br>少しマニアックな問題に挑戦！</p>
+    </a>
+
+    <!-- 上級編 -->
+    <a href="quiz_hard.html" class="menu-card">
+      <h2>日本人の特殊能力 part1</h2>
+      <p>あなたは本当に日本通？<br>超難問クイズ！</p>
+    </a>
+  </div>
+
+  <footer>
+  <p>© 2025 マッドラボ - 人間観察チャンネル -</p>
+  <p><a href="#">プライバシーポリシー</a> | <a href="#">お問い合わせ</a></p>
+  </footer>
+
+
+</body>
+</html>

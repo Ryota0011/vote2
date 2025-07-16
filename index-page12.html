@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>投票クイズ</title>
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+
+      background: url('image1.png') no-repeat center center fixed;
+      background-size: cover;
+
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+  
+    }
+
+    header {
+  background: rgba(0,0,0,1);
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 中央寄せ */
+  gap: 15px; /* ロゴと文字の間隔 */
+}
+
+header img.logo {
+  height: 50px;
+  width: auto;
+}
+
+header .site-title {
+  font-family: 'Kosugi Maru', sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+
+    .layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px; /* 左右の間隔 */
+  margin: 20px;
+  align-items: stretch;
+}
+
+.ad-space {
+  width: 160px;
+      min-height: 600px;
+      background: #eee;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      border-radius: 8px;
+      min-height: auto;
+}
+  
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .choice {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 18px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: #f1f1f1;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .choice:hover {
+      border: 2px solid #ff9800;
+      background: #fff8e1;
+    }
+
+    .selected {
+      border: 2px solid #ff9800;
+      background: #ffe680;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .bar-container {
+      width: 100%;
+      background: #eee;
+      border-radius: 10px;
+      margin: 5px 0;
+      height: 20px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background: #ff6b6b;
+      text-align: right;
+      color: white;
+      font-size: 14px;
+      padding-right: 5px;
+    }
+
+    .age-result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff7e6;
+      border-left: 5px solid #ff9900;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #007acc;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #005fa3;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.85); /* ヘッダーと同じ黒系 */
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+      margin-top: 40px; /* 本文との間に余白 */
+    }
+    
+    
+    footer a {
+      color: #ffcc66; /* リンクはちょっと目立つ色 */
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header onclick="window.location.href='index.html'" style="cursor: pointer;">
+  <div class="header-content">
+    <img src="image-logo.png" alt="ロゴ" class="logo">
+    <span class="site-title">マッドラボ -人間観察チャンネル-</span>
+  </div>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+
+  </header>
+
+  <div class="layout">
+  <div class="ad-space left-ad">
+    <!-- 左側広告 -->
+    <p>広告スペース</p>
+  </div>
+
+
+<div class="container">
+  <h1 id="question-text">読み込み中...</h1>
+
+  <button class="choice" id="choiceA" onclick="selectChoice(0)">選択肢A</button>
+  <button class="choice" id="choiceB" onclick="selectChoice(1)">選択肢B</button>
+
+  <div id="result-area" class="result"></div>
+
+  <div>
+    <button class="btn" id="action-btn" onclick="showResult()">結果を見る</button>
+  </div>
+  <button class="btn home-btn" onclick="window.location.href='index-top.html'">ホームに戻る</button>
+</div>
+
+<script>
+  // ===== クイズデータ3問 =====
+  const questions = [
+    { q: "電車の中では静かにする", choices: ["共感する", "共感しない"] },
+    { q: "横入りしない", choices: ["共感する", "共感しない"] },
+    { q: "ポイ捨てをしない", choices: ["共感する", "共感しない"] }
+  ];
+
+  let currentIndex = 0;
+  let selectedChoice = null;
+
+  const questionText = document.getElementById("question-text");
+  const choiceA = document.getElementById("choiceA");
+  const choiceB = document.getElementById("choiceB");
+  const resultArea = document.getElementById("result-area");
+  const actionBtn = document.getElementById("action-btn");
+
+  // 初回ロード
+  loadQuestion();
+
+  function loadQuestion() {
+    const q = questions[currentIndex];
+    questionText.textContent = `Q${currentIndex + 1}. ${q.q}`;
+    choiceA.textContent = q.choices[0];
+    choiceB.textContent = q.choices[1];
+
+    // 初期化
+    selectedChoice = null;
+    choiceA.classList.remove("selected");
+    choiceB.classList.remove("selected");
+    resultArea.innerHTML = "";
+    actionBtn.textContent = "結果を見る";
+    actionBtn.onclick = showResult;
+  }
+
+  function selectChoice(choice) {
+    selectedChoice = choice;
+    choiceA.classList.remove("selected");
+    choiceB.classList.remove("selected");
+    if (choice === 0) choiceA.classList.add("selected");
+    if (choice === 1) choiceB.classList.add("selected");
+  }
+
+    async function showResult() {
+    if (selectedChoice === null) {
+      alert("どちらかを選択してください");
+      return;
+    }
+
+    const PAGE_ID = "page12";  // ← ページごとに変える
+    const questionId = `${PAGE_ID}_q${currentIndex + 1}`;
+
+    const choice = selectedChoice === 0 ? "A" : "B";
+
+    // Firebaseに投票送信
+    await vote(questionId, choice);
+
+    // Firebaseから結果を取得
+    const { percentA, percentB } = await getResults(questionId);
+
+    // ランダムで年代別データ（仮）
+    function rand() { return Math.floor(Math.random() * 100); }
+    let age20 = rand(), age30 = rand(), age40 = rand();
+
+    let resultHTML = `<p>あなたの選択：<strong>${questions[currentIndex].choices[selectedChoice]}</strong></p>`;
+    resultHTML += `<p>みんなの結果は…</p>`;
+    resultHTML += `
+      <div>${questions[currentIndex].choices[0]} (${percentA}%)</div>
+      <div class="bar-container"><div class="bar" style="width:${percentA}%"></div></div>
+      <div>${questions[currentIndex].choices[1]} (${percentB}%)</div>
+      <div class="bar-container"><div class="bar" style="width:${percentB}%; background:#4dabf7;"></div></div>
+    `;
+
+    resultHTML += `<div class="age-result">
+      <h3>年代別の投票結果</h3>
+      <div>20代: ${age20}%<div class="bar-container"><div class="bar" style="width:${age20}%; background:#ff6699;"></div></div></div>
+      <div>30代: ${age30}%<div class="bar-container"><div class="bar" style="width:${age30}%; background:#66cc66;"></div></div></div>
+      <div>40代以上: ${age40}%<div class="bar-container"><div class="bar" style="width:${age40}%; background:#3366ff;"></div></div></div>
+    </div>`;
+
+    resultArea.innerHTML = resultHTML;
+
+    // ボタン切り替え
+    if (currentIndex < questions.length - 1) {
+      actionBtn.textContent = "次の質問へ";
+      actionBtn.onclick = nextQuestion;
+    } else {
+      actionBtn.textContent = "ホームに戻る";
+      actionBtn.onclick = () => {
+        window.location.href = "index.html";
+      };
+    }
+  }
+
+
+  function nextQuestion() {
+    currentIndex++;
+    loadQuestion();
+  }
+</script>
+
+<div class="ad-space right-ad">
+    <!-- 右側広告 -->
+    <p>広告スペース</p>
+  </div>
+</div>
+
+  <footer>
+  <p>© 2025 マッドラボ - 人間観察チャンネル -</p>
+  <p><a href="#">プライバシーポリシー</a> | <a href="#">お問い合わせ</a></p>
+  </footer>
+
+
+<script type="module">
+  // ✅ 必要なライブラリ読み込み
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getDatabase, ref, runTransaction, get } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+  // ✅ あなたのFirebase設定そのまま使う
+  const firebaseConfig = {
+    apiKey: "AIzaSyC9_TqRUvhWmZ9FsKWSUQ-Db7BrjKNtgFw",
+    authDomain: "madlab-vote.firebaseapp.com",
+    databaseURL: "https://madlab-vote-default-rtdb.firebaseio.com/",
+    projectId: "madlab-vote",
+    storageBucket: "madlab-vote.firebasestorage.app",
+    messagingSenderId: "588437962595",
+    appId: "1:588437962595:web:60ba270b69d711e2bb1d56",
+    measurementId: "G-4YB2QG27EB"
+  };
+
+  // ✅ Firebase初期化
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  console.log("✅ Firebase接続OK！");
+
+  
+
+
+async function getVoteResults(questionId) {
+  const voteRef = ref(db, `votes/${questionId}`);
+  const snapshot = await get(voteRef);
+
+  if (snapshot.exists()) {
+    const data = snapshot.val();
+    const total = (data.A || 0) + (data.B || 0);
+    const percentA = total > 0 ? Math.round((data.A || 0) / total * 100) : 0;
+    const percentB = total > 0 ? Math.round((data.B || 0) / total * 100) : 0;
+
+    console.log(`結果: A=${percentA}%, B=${percentB}%`);
+  } else {
+    console.log("まだデータがありません");
+  }
+}
+
+// テスト
+getVoteResults("q1");
+
+  // ✅ 投票する関数 (questionId = "q1", choice = "A" or "B")
+  async function vote(questionId, choice) {
+    const voteRef = ref(db, `votes/${questionId}/${choice}`);
+    await runTransaction(voteRef, (current) => (current || 0) + 1);
+    console.log(`👍 投票送信: ${questionId} → ${choice}`);
+  }
+
+  
+
+  // ✅ 投票結果を読み込む関数
+  async function getResults(questionId) {
+  const snapshot = await get(ref(db, `votes/${questionId}`));
+  const data = snapshot.val() || { A: 0, B: 0 };
+  const total = (data.A || 0) + (data.B || 0);
+
+  const safePercent = (value, total) => total > 0 ? Math.round((value / total) * 100) : 0;
+
+  return {
+    percentA: safePercent(data.A || 0, total),
+    percentB: safePercent(data.B || 0, total),
+    total
+  };
+}
+
+  window.vote = vote;
+  window.getResults = getResults;
+
+  // ✅ テスト用
+  window.testVote = () => vote("q1", "A");
+  window.testLoad = async () => console.log(await getResults("q1"));
+</script>
+
+
+
+</body>
+</html>
